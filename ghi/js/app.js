@@ -28,7 +28,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch(url);
 
         if (!response.ok) {
-        const alert = displayAlert("Response failed");
+        const alert = document.querySelector('alert alert-primary');
+        alert.innerHTML += "failed to receive response"
         } else {
         const data = await response.json();
 
