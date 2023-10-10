@@ -9,7 +9,7 @@ from .models import Conference, Location, State
 
 class LocationListEncoder(ModelEncoder):
     model = Location
-    properties = ["name"]
+    properties = ["name", "picture_url"]
 
 
 class LocationDetailEncoder(ModelEncoder):
@@ -95,6 +95,7 @@ def api_list_conferences(request):
             encoder=ConferenceDetailEncoder,
             safe=False,
         )
+
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_show_conference(request, pk):
