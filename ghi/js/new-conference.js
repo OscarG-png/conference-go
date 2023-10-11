@@ -7,10 +7,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const selectTag = document.getElementById('location');
         for (let location of data.locations) {
             const option = document.createElement('option');
-            option.value = location.href;
-            let str = option.value.split('/');
-            str = Number(str[3]);
-            option.value = str;
+            option.value = location.id;
 
             option.innerHTML = location.name;
             selectTag.appendChild(option);
