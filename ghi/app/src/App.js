@@ -4,6 +4,8 @@ import AttendeesList from './AttendeesList';
 import LocationForm from './LocationForm';
 import ConferenceForm from './ConferenceForm';
 import PresentationForm from "./PresentationForm"
+import AttendeeForm from './AttendeeForm';
+import MainPage from './MainPage';
 
 function App(props) {
   if (props.attendees === undefined) {
@@ -14,6 +16,7 @@ function App(props) {
       <Nav />
       <div className="container">
         <Routes>
+          <Route index element={<MainPage />} />
           <Route path="locations">
             <Route path="new" element={<LocationForm />} />
           </Route>
@@ -22,6 +25,9 @@ function App(props) {
           </Route>
           <Route path="list">
             <Route path="attendees-list"element={<AttendeesList />} />
+          </Route>
+          <Route path="attendees">
+            <Route path="new" element={<AttendeeForm />} />
           </Route>
           <Route path="presentations">
             <Route path="new" element={<PresentationForm />} />
