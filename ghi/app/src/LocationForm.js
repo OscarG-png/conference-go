@@ -35,7 +35,7 @@ function LocationForm(props) {
         data.state = state;
         console.log(data);
 
-        const locationUrl = 'http://localhost:8000/api/locations/';
+    const locationUrl = 'http://localhost:8000/api/locations/';
     const fetchConfig = {
         method: "post",
         body: JSON.stringify(data),

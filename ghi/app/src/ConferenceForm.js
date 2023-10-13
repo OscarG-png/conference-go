@@ -1,14 +1,87 @@
 import React, { useEffect, useState } from "react";
 
 function ConferenceForm() {
-    const [states, setStates] = useState([]);
+    const [locations, setlocations] = useState([]);
 
+    const [name, setName] = useState('');
+    const handleNameChange = (event) => {
+        const value = event.target.value;
+        setName(value);
+    }
+
+    const [start, setStart] = useState('');
+    const handleStartChange = (event) => {
+        const value = event.target.value;
+        setStart(value);
+    }
+
+    const [end, setEnd] = useState('');
+    const handleEndChange = (event) => {
+        const value = event.target.value;
+        setEnd(value);
+    }
+
+    const [description, setDescription] = useState('');
+    const handleDescriptionChange = (event) => {
+        const value = event.target.value;
+        setDescription(value);
+    }
+
+    const [presentations, setPresentation] = useState('');
+    const handlePrensentationChange = (event) => {
+        const value = event.target.value;
+        setPresentation(value);
+    }
+
+    const [attendees, setAttendees] = useState('');
+    const handleAttendeesChange = (event) => {
+        const value = event.target.value;
+        setAttendees(value);
+    }
+    const [state, setState] = useState('');
+    const handleStateChange = (event) => {
+        const value = event.target.value;
+        setState(value);
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = {};
+        data.name = name;
+        data.starts = start;
+        data.ends = end;
+        data.description = description;
+        data.max_presentations = presentations;
+        data.attendees = attendees;
+
+    const conferenceUrl = "http://localhost:8000/api/conferences/";
+    const fetchConfig = {
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "applicatons/json",
+        },
+    };
+
+    const response = await fetch(conferenceUrl, fetchConfig);
+    if (response.ok) {
+        const newConference = await response.json();
+        console.log(newConference);
+
+        setName('');
+        setStart('');
+        setEnd('');
+        setDescription('');
+        setPresentation('');
+        setAttendees('');
+    }
+    }
     const fetchData = async () => {
-        const url = 'http://localhost:8000/api/states/';
+        const url = 'http://localhost:8000/api/locations/';
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            setStates(data.states);
+            setlocations(data.locations);
             console.log(data);
         }
     }
@@ -23,33 +96,41 @@ function ConferenceForm() {
             <h1>Create a new conference</h1>
             <form id="create-conference-form">
                 <div className="form-floating mb-3">
-                    <input placeholder="Name" required type="text" name="name" id="name" className="form-control"/>
+                    <input onChange={handleNameChange} placeholder="Name" required type="text"
+                    name="name" id="name" className="form-control"/>
                     <label htmlFor="name">Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input placeholder="starts" required type="date" name="starts" id="start" className="form-control"/>
+                    <input onChange={handleStartChange} placeholder="starts" required type="date"
+                    name="starts" id="start" className="form-control"/>
                     <label htmlFor="starts">start</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input placeholder="ends" required type="date" name="ends" id="end" className="form-control"/>
+                    <input onChange={handleEndChange} placeholder="ends" required type="date"
+                    name="ends" id="end" className="form-control"/>
                     <label htmlFor="ends">end</label>
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="description">Description</label>
-                    <textarea className="form-control" name="description" id="description" rows="3"></textarea>
+                    <textarea onChange={handleDescriptionChange} className="form-control" name="description"
+                    id="description" rows="3"></textarea>
                 </div>
                 <div className="form-floating mb-3">
-                    <input placeholder="Max presentations" required type="number" name="max_presentations" id="max_presentations" className="form-control"/>
+                    <input onChange={handlePrensentationChange} placeholder="Max presentations"
+                    required type="number" name="max_presentations" id="max_presentations"
+                    className="form-control"/>
                     <label htmlFor="max_presentations">Maximum presentations</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input placeholder="Max attendees" required type="number" name="max_attendees" id="max_attendees" className="form-control"/>
+                    <input onChange={handleAttendeesChange} placeholder="Max attendees" required
+                    type="number" name="max_attendees" id="max_attendees" className="form-control"/>
                     <label htmlFor="max_attendees">Maximum attendees</label>
                 </div>
                 <div className="mb-3">
-                    <select required id="location" name="location" className="form-select">
+                    <select onChange={handleStateChange} required id="location" name="location"
+                    className="form-select">
                         <option value="">Choose a location</option>
-                        {states.map(state => {
+                        {locations.map(state => {
                             return (
                                 <option key={state.abbreviation} value={state.abbreviation}>
                                     {state.name}
