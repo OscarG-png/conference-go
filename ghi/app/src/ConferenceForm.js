@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function ConferenceForm() {
-    const [locations, setlocations] = useState([]);
+    const [locations, setLocations] = useState([]);
 
     const [name, setName] = useState('');
     const handleNameChange = (event) => {
@@ -60,7 +60,7 @@ function ConferenceForm() {
         method: "post",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "applicatons/json",
+            "Content-Type": "application/json",
         },
     };
 
@@ -82,8 +82,7 @@ function ConferenceForm() {
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            setlocations(data.locations);
-            console.log(data);
+            setLocations(data.locations);
         }
     }
     useEffect(() => {
@@ -95,7 +94,7 @@ function ConferenceForm() {
         <div className="offset-3 col-6">
             <div className="shadow p-4 mt-4">
             <h1>Create a new conference</h1>
-            <form onSubmit={handleSubmit} id="create-conference-form">
+            <form onSubmit={handleSubmit} id="create-attendee-form">
                 <div className="form-floating mb-3">
                     <input onChange={handleNameChange} placeholder="Name" required type="text"
                     name="name" id="name" className="form-control"/>
