@@ -28,7 +28,7 @@ function ConferenceForm() {
     }
 
     const [presentations, setPresentation] = useState('');
-    const handlePrensentationChange = (event) => {
+    const handlePresentationChange = (event) => {
         const value = event.target.value;
         setPresentation(value);
     }
@@ -38,10 +38,10 @@ function ConferenceForm() {
         const value = event.target.value;
         setAttendees(value);
     }
-    const [state, setState] = useState('');
-    const handleStateChange = (event) => {
+    const [location, setLocation] = useState('');
+    const handleLocationChange = (event) => {
         const value = event.target.value;
-        setState(value);
+        setLocation(value);
     }
 
     const handleSubmit = async (event) => {
@@ -52,7 +52,8 @@ function ConferenceForm() {
         data.ends = end;
         data.description = description;
         data.max_presentations = presentations;
-        data.attendees = attendees;
+        data.max_attendees = attendees;
+        data.location = location;
 
     const conferenceUrl = "http://localhost:8000/api/conferences/";
     const fetchConfig = {
@@ -94,7 +95,7 @@ function ConferenceForm() {
         <div className="offset-3 col-6">
             <div className="shadow p-4 mt-4">
             <h1>Create a new conference</h1>
-            <form id="create-conference-form">
+            <form onSubmit={handleSubmit} id="create-conference-form">
                 <div className="form-floating mb-3">
                     <input onChange={handleNameChange} placeholder="Name" required type="text"
                     name="name" id="name" className="form-control"/>
@@ -116,7 +117,7 @@ function ConferenceForm() {
                     id="description" rows="3"></textarea>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={handlePrensentationChange} placeholder="Max presentations"
+                    <input onChange={handlePresentationChange} placeholder="Max presentations"
                     required type="number" name="max_presentations" id="max_presentations"
                     className="form-control"/>
                     <label htmlFor="max_presentations">Maximum presentations</label>
@@ -127,13 +128,13 @@ function ConferenceForm() {
                     <label htmlFor="max_attendees">Maximum attendees</label>
                 </div>
                 <div className="mb-3">
-                    <select onChange={handleStateChange} required id="location" name="location"
+                    <select onChange={handleLocationChange} required id="location" name="location"
                     className="form-select">
                         <option value="">Choose a location</option>
-                        {locations.map(state => {
+                        {locations.map(location => {
                             return (
-                                <option key={state.abbreviation} value={state.abbreviation}>
-                                    {state.name}
+                                <option key={location.id} value={location.id}>
+                                    {location.name}
                                 </option>
                             );
                         })}
