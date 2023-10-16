@@ -22,12 +22,9 @@ function App(props) {
           </Route>
           <Route path="conferences">
             <Route path="new" element={<ConferenceForm />} />
-          </Route>
-          <Route path="list">
-            <Route path="attendees-list"element={<AttendeesList />} />
-          </Route>
           <Route path="attendees">
             <Route path="new" element={<AttendeeForm />} />
+            <Route path="List"element={<AttendeesList />} />
           </Route>
           <Route path="presentations">
             <Route path="new" element={<PresentationForm />} />
