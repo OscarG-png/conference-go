@@ -22,6 +22,7 @@ function App(props) {
           </Route>
           <Route path="conferences">
             <Route path="new" element={<ConferenceForm />} />
+            </Route>
           <Route path="attendees">
             <Route path="new" element={<AttendeeForm />} />
             <Route path="List"element={<AttendeesList />} />
